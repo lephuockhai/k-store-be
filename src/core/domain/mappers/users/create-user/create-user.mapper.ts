@@ -6,9 +6,11 @@ export class CreateUserMapper extends Mapper<CreateUserDto, UserEntity> {
   public mapFrom(data: CreateUserDto): UserEntity {
     const user = new UserEntity();
 
-    user.name = data.name;
+    user.first_name = data.first_name;
+    user.last_name = data.last_name;
     user.email = data.email;
     user.password = data.password;
+    user.avatar = data.avatar;
 
     return user;
   }
@@ -17,9 +19,11 @@ export class CreateUserMapper extends Mapper<CreateUserDto, UserEntity> {
     const user = new CreateUserDto();
 
     user.id = data.id;
-    user.name = data.name;
+    user.first_name = data.first_name;
+    user.last_name = data.last_name;
     user.email = data.email;
     user.password = data.password;
+    user.avatar = data.avatar;
 
     return user;
   }

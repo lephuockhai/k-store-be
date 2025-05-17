@@ -1,28 +1,26 @@
 import { Mapper } from '@/core/base/mapper';
 import { UserEntity } from '@/core/domain/entities/user.entity';
-import { CreatedUserDto } from '@/shared/dtos/users/created-user.dto';
+import { UpdateUserDto } from '@/shared/dtos/users/update-user.dto';
 
-export class CreatedUserMapper implements Mapper<CreatedUserDto, UserEntity> {
-  public mapFrom(data: CreatedUserDto): UserEntity {
+export class UpdateUserMapper extends Mapper<UpdateUserDto, UserEntity> {
+  public mapFrom(data: UpdateUserDto): UserEntity {
     const user = new UserEntity();
 
-    user.id = data.id;
     user.first_name = data.first_name;
     user.last_name = data.last_name;
+    user.password = data.password;
     user.avatar = data.avatar;
-    user.email = data.email;
 
     return user;
   }
 
-  public mapTo(data: UserEntity): CreatedUserDto {
-    const user = new CreatedUserDto();
+  public mapTo(data: UserEntity): UpdateUserDto {
+    const user = new UpdateUserDto();
 
-    user.id = data.id;
     user.first_name = data.first_name;
     user.last_name = data.last_name;
+    user.password = data.password;
     user.avatar = data.avatar;
-    user.email = data.email;
 
     return user;
   }

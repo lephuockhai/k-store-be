@@ -1,8 +1,20 @@
-import { Module } from '@nestjs/common';
-import { PostsModule } from './posts/posts.module';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './middleware/all-exceptions.filter';
+import { LoggerMiddleware } from './middleware/logging.middleware';
 
 @Module({
-  imports: [UsersModule, PostsModule],
+  imports: [UsersModule],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
